@@ -1,0 +1,66 @@
+<div class="panel panel-sidebar">
+                            <div class="panel-heading">
+                                <p class="nameHeading">Welcome, Admin</p>   
+                               <!-- <span class="glyphicon glyphicon-pencil edit-profile-icon"></span> -->
+                            </div>
+                            <div class="panel-body">
+                                 <div class="white-box">
+                                     <p class="white-box-heading"> Site Metrics </p>
+                                     <p> Accounts Created <span>{{ jobsResults_totalcount }}</span> </p>
+                                     <p> Completed Profiles <span>{{ completedProfiles_count }}</span> 
+                                         <span class="glyphicon glyphicon-triangle-up"></span>
+                                     </p>
+                                     <p ng-repeat="cp in completedProfiles">
+                                         <a href="#">
+                                             {{ cp.fname }} {{ cp.lname}}
+                                         </a> 
+                                     </p>
+                                 </div>
+                                 <div class="white-box">
+                                     <p class="white-box-heading"> Trending Skills </p>
+                                     <p class="box-row"> 
+                                         <span class="box-subleft">C</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.c" />
+                                         </span>
+                                     </p>
+                                     <p class="box-row"> 
+                                         <span class="box-subleft">C++</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.cplusplus" />
+                                         </span>
+                                     </p>
+                                     <p class="box-row"> 
+                                         <span class="box-subleft">C#</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.csharp" />
+                                         </span>
+                                     </p>
+                                      <p class="box-row"> 
+                                         <span class="box-subleft">Java</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.java" />
+                                         </span>
+                                     </p>
+                                     <p class="box-row"> 
+                                         <span class="box-subleft">Python</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.python" />
+                                         </span>
+                                     </p>
+                                     <p class="box-row"> 
+                                         <span class="box-subleft">PHP</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.php" />
+                                         </span>
+                                     </p>
+                                     <p class="box-row"> 
+                                         <span class="box-subleft">Pascal</span>
+                                         <span class="box-subright">
+                                             <input type="checkbox" ng-model="$parent.trending_skills_selected.pascal" />
+                                         </span>
+                                     </p>
+                                 </div>
+                            </div>
+                            <!--<div class="panel-footer">Footer</div> -->
+</div>

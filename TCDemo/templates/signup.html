@@ -1,0 +1,128 @@
+<loading path="./"></loading>
+                    <error path="./"></error>
+<div class="row">
+            <div class="col-xs-12">
+                <header class="header">
+                    <div ng-include="'templates/header.html'" ></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'templates/sidebar.html'"></div>
+                </div>
+                <div class="main">
+                    <div class="registration_part">
+    <h1>Registration:</h1>
+    
+    <div class="modal fade" id="jobPostModal" role="dialog">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">{{ notification.modalTitle }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>{{ notification.modalBody }}</p>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                    </div>
+                                    </div>
+  </div>
+    <form name="signupForm" novalidate>
+        <div class="form-group">
+            <label for="fname">First Name:</label>
+            <input type="text" class="form-control" name="fname" ng-model="signup.fname">
+        </div>
+        <div class="form-group">
+            <label for="lname">Last Name:</label>
+            <input type="text" class="form-control" name="lname" ng-model="signup.lname">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" name="email" ng-model="signup.email" required>
+            <p>
+                <span ng-show="signupForm.email.$error.required" class="colorRed">
+                    Please enter the email id
+                </span> 
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" name="password" ng-model="signup.password" required>
+            <p>
+                <span ng-show="signupForm.password.$error.required" class="colorRed">
+                    Please enter the password
+                </span> 
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="cpassword">Confirm Password:</label>
+            <input type="password" class="form-control" name="cpassword" ng-model="signup.cpassword" required> 
+            <p>
+                <span ng-show="signupForm.cpassword.$error.required" class="colorRed">
+                    Please enter the confirm password
+                </span> 
+                <span 
+                    ng-show="signupForm.password.$dirty && 
+                      signupForm.cpassword.$dirty && 
+                      signup.password.length > 0 &&
+                      signup.cpassword.length > 0 &&
+                      ( signup.password.length != signup.cpassword.length ||
+                        signup.password != signup.cpassword
+                      )" 
+                      class="colorRed">
+                    Password and Confirm Password is not matching
+                </span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="position">Position:</label>
+            <input type="text" class="form-control" name="position" ng-model="signup.position">
+        </div>
+        <div class="form-group">
+            <label for="githuburl">Github Url:</label>
+            <input type="text" class="form-control" name="githuburl" ng-model="signup.githuburl">
+        </div>
+        <div class="form-group">
+            <label for="resume">Resume:</label>
+            <input type="text" class="form-control" name="resume" ng-model="signup.resume">
+        </div>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" name="city" ng-model="signup.city">
+        </div>
+        <div class="form-group">
+            <label for="state">State:</label>
+            <select
+                name="state_selected"
+                ng-model="signup.state"
+                class="form-control newPostSelectDropdown"
+                ng-options="state.value as state.label for state in state_list"
+                ng-change="stateSelected()"
+                required
+                >
+                <option value="">Please select a state</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="state">Salary Needed:</label>
+            <select
+                name="salary_selected"
+                ng-options="salary.value as salary.label for salary in salary_list"
+                ng-model="signup.salary"
+                ng-change="salarySelected()"
+                class="form-control newPostSelectDropdown"
+                required
+                >
+                <option value="">Please select a salary</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary-blue" ng-click="save(signupForm)">Save</button>
+            <button class="btn btn-primary-blue" ng-click="reset(signupForm)">Reset</button>
+        </div>
+    </form>
+</div>
+                </div>
+            </div>
+</div>

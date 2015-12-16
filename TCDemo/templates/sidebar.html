@@ -1,0 +1,109 @@
+<div class="panel panel-sidebar  candidate_dashboard_info text-center" ng-show="sidebar_mode">
+                            <div class="panel-heading">
+                                <p class="nameHeading">Hey {{ candidate_fname }} {{ candidate_lname }}!</p>   
+                                <span class="glyphicon glyphicon-pencil edit-profile-icon" ng-click="edit_candidate_info()" ng-hide="edit_candidate_info_mode"></span>
+                            </div>
+                            <div class="panel-body">
+                                <div ng-hide="edit_candidate_info_mode">
+                                <p>  
+                                    <img src="assets/imgs/profile-complete-a.png" class="img-responsive" ng-if="profilecompleted == 0" />
+                                    <img src="assets/imgs/profile-complete-b.png" class="img-responsive" ng-if="profilecompleted == 25" />
+                                    <img src="assets/imgs/profile-complete-c.png" class="img-responsive" ng-if="profilecompleted == 50" />
+                                    <img src="assets/imgs/profile-complete-d.png" class="img-responsive" ng-if="profilecompleted == 75" />
+                                    <img src="assets/imgs/profile-complete-e.png" class="img-responsive" ng-if="profilecompleted == 100" />
+
+                                </p>
+                                <p></p>
+                                    <p class="nameHeading">
+                                        {{ candidate_fname }}
+                                    </p>
+                                    <p>
+                                        {{ candidate_lname }}
+                                    </p>
+                                    <p>
+                                        {{ candidate_position }}
+                                    </p>
+                                    <p>
+                                        {{ candidate_city }}, {{ candidate_state }}
+                                    </p>
+                                    <p>
+                                        {{ candidate_salary }}
+                                    </p>
+                                    <p>
+                                        Email: {{ candidate_email }}
+                                    </p>
+                                    <p>
+                                        Github: {{ candidate_githuburl }}
+                                    </p>
+                                    <p>
+                                        Resume: <a 
+                                            href="uploads/{{ rf.url }}" 
+                                            ng-repeat="rf in candidate_resumeuploadedfile"
+                                            class="orangeColor">
+                                            {{ rf.name }}
+                                        </a>
+                                    </p>
+                                </div> 
+                                <div ng-show="edit_candidate_info_mode">
+                                    <form name="candidateDashboardInfoForm">
+                                    <p>
+                                        <label>First Name:</label>
+                                        <input type="text" name="candidate_fname" ng-model="$parent.candidate_fname" />
+                                    </p>
+                                    <p>
+                                        <label>Last Name:</label>
+                                        <input type="text" name="candidate_lname" ng-model="$parent.candidate_lname" />
+                                    </p>
+                                    <p>
+                                        <label>Position:</label>
+                                        <input type="text" name="candidate_position" ng-model="$parent.candidate_position" />
+                                    </p>
+                                    <p>
+                                        <label>Salary:</label>
+                                        <select 
+                                            ng-model="$parent.candidate_salary"
+                                            ng-options="salary.label as salary.value for salary in $parent.salary_list"
+                                            >
+                                            <option value="">Choose desired salary</option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <label>City:</label>
+                                        <input type="text" name="candidate_city" ng-model="$parent.candidate_city" />
+                                         
+                                    </p>
+                                    <p>
+                                        <label>State:</label>
+                                       
+                                         <select 
+                                            ng-model="$parent.candidate_state"
+                                            ng-options="state.label as state.value for state in $parent.state_list"
+                                            class="half"
+                                            >
+                                        </select>
+                                    </p>
+                                    
+                                    <p>
+                                        <label>Email:</label>
+                                        <input type="text" name="candidate_email" ng-model="$parent.candidate_email" />
+                                    </p>
+                                    <p>
+                                        <label>Github:</label>
+                                        <input type="text" name="candidate_githuburl" ng-model="$parent.candidate_githuburl" />
+                                    </p>
+                                    <p class="sidebarResumeSection">
+                                        <label>Resume:</label>
+                                        <input id="resumeuploadfile" type="file" name="resumeuploadfile" file-model="$parent.resumeuploadfile"/>
+                                        <!--<button id="resumeuploadbtn" class="btn btn-primary-2f475e">Upload</button>
+                                        <input id="resumeuploadfilecid" type="hidden" name="resumeuploadfilecid" value="{{$parent.cid}}"/>-->
+                                        <button class="btn btn-primary-2f475e" ng-click="fileUpload($parent.cid)">Angular Upload</button>
+                                    </p>
+                                    <p class="text-center">
+                                        <button class="btn btn-primary-2f475e" ng-click="save_candidate_info()">Save</button>
+                                            
+                                    </p>
+                                </form>
+                                </div>    
+                            </div>
+                            <!--<div class="panel-footer">Footer</div> -->
+                        </div>

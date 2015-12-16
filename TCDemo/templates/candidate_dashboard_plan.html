@@ -1,0 +1,126 @@
+<loading path="./"></loading>
+                    <error path="./"></error>
+                    <div class="row">
+            <div class="col-xs-12">
+                <header class="header">
+                    <div ng-include="'templates/header.html'" ></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'templates/sidebar.html'"></div>
+                </div>
+                <div class="main">
+                  <div class="col-xs-12">
+                        <!--<ul class="list-inline">
+                                <li class="col-sm-3 menuBG"><a href="/TCDdemo/#/discover">Discover</a></li>
+                                <li class="col-sm-3 menuBG"><a href="/TCDemo/#/learn">Learn</a></li>
+                                <li class="col-sm-3 currentmenuBG2"><a href="/TCDemo/#/plan">Plan</a></li>
+                                <li class="col-sm-3 menuBG"><a href="/TCDemo/#/apply">Apply</a></li>
+                        </ul>-->
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/discover">Discover</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/learn">Learn</a></div>
+                        <div class="col-xs-3 currentmenuBG2"><a href="/TCDemo/#/plan">Plan</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/apply">Apply</a></div>
+                      
+                    </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-303441">
+                                <p class="panel-heading">
+                                    who are you?
+                                </p>
+                                <p class="panel-body text-center">
+                                    <button class="btn btn-default fontWeightBold">Taking Charge</button>
+                                    <button class="btn btn-default fontWeightBold">Natural entertainer</button>
+                                    <button class="btn btn-default fontWeightBold">Good Catalyst for action</button>
+                                    <button class="btn btn-default fontWeightBold">Talkative yet private</button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-3a5769">
+                                <p class="panel-heading">
+                                    what's skills do you have?
+                                </p>
+                                <p class="panel-body text-center">
+                                    <button class="btn btn-primary-d9d9d9">C</button>
+                                    <button class="btn btn-primary-d9d9d9">C++</button> <br/> <br/>
+                                    <button class="btn btn-primary-d9d9d9">C#</button>
+                                    <button class="btn btn-primary-d9d9d9">Java</button><br/> <br/>
+                                    <button class="btn btn-primary-d9d9d9">Phython</button>
+                                    <button class="btn btn-primary-d9d9d9">PHP</button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-59658e positionRelative" >
+                                <p class="panel-heading">
+                                    Upload Results
+                                </p>
+                                <p class="panel-body text-center">
+                                    <a href="#">javaResults1.pdf</a>
+                                </p>
+                                <img src="assets/imgs/upload.png" class="img-responsive uploadImage"/>
+                                <br/><br/><br/><br/><br/><br/>
+                            </div>
+                        </div>   
+                        <div class="col-xs-12">
+                            <div class="panel panel-e1702b border-a1fca2">
+                                <p class="panel-heading">
+                                    <span>Whats's your vision?</span>
+                                     <span class="headerRightPart2"> <a href="#">See Examples </a> &nbsp;
+                                         <span ng-click="addVision(cid)" class="cursorP">+</span> 
+                                     </span>
+                                </p>
+                                
+                                    <span ng-show="vision_notification.msg" ng-class="vision_notification.status"> {{ vision_notification.msg }}</span>
+                              
+                                    <table class="table table-bordered panel-body">
+                                        <thead>
+                                        <tr>
+                                            <th>Goal</th>
+                                            <th>Actions</th>
+                                            <th>Timeframe</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="vision_table">
+                                        <tr ng-repeat="vision in visions">
+                                            <td>
+                                                <span class="glyphicon glyphicon-floppy-disk" ng-click="saveVision(cid, vision.vid, 0, $event)" ng-hide="true"></span>&nbsp;
+                                                <span class="glyphicon glyphicon-remove icon-red" ng-click="deleteVision(cid, vision.vid, $event)"></span>&nbsp;
+                                                <span ng-click="editVision(cid, vision.vid, $event)" class="glyphicon glyphicon-pencil"></span>
+                                                <span>{{ vision.goal }}</span>
+                                                <span>
+                                                    <input type="text"  
+                                                           ng-keyup="visionGoalCheck($event, vision.vid)" 
+                                                           ng-model="visionGoalDb$index" 
+                                                           ng-hide="true" />
+                                                </span>
+                                            </td>
+                                            <td>{{ vision.action }}</td>
+                                            <td>
+                                               <select ng-model="visionTimeFrame" ng-hide="true">
+                                                    <option ng-repeat="tf in timeframelist" ng-selected="tf.value == vision.timeframe">
+                                                        {{ tf.label }}
+                                                    </option>
+                                                </select>
+                                                {{ vision.timeframe }}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                </table>
+                               
+                            </div>
+                        </div>
+
+                          
+                        
+
+                </div>
+            </div>
+</div>
+
+
+                    
+                    
+		

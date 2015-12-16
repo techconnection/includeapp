@@ -1,0 +1,23 @@
+{
+    "candidates" : [
+        {
+            "candidate_name" : "Natasha Salvo",
+            "candidate_position": "iOS Developer",
+            "candidate_salary": "$75 to $85k",
+            "candidate_city" : "Boston",
+            "candidate_state": "MA",
+            "candidate_email": "nsalvo@gmail.com",
+            "candidate_github": "www.github/nsalvo87"
+        },
+        {
+            "candidate_name" : "Reese goldman",
+            "candidate_position": "Java Developer",
+            "candidate_salary": "$85 to $100k",
+            "candidate_city" : "New York",
+            "candidate_state": "USA",
+            "candidate_email": "reesegoldman@gmail.com",
+            "candidate_github": "www.github/reesegoldman"
+        }
+        
+    ]
+}

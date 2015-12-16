@@ -1,0 +1,104 @@
+<loading path="./"></loading>
+                    <error path="./"></error>
+                    <div class="row">
+            <div class="col-xs-12">
+                <header class="header">
+                    <div ng-include="'templates/header.html'" ></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'templates/sidebar.html'"></div>
+                </div>
+                <div class="main">
+                 <div class="profileBoxes">
+                   <div class="col-xs-12">
+                        <!--<ul class="list-inline">
+                                <li ng-class="(profilecompleted == 25)? 'col-xs-3 currentmenuBG' : 'col-xs-3 menuBG'"><a href="/TCDemo/#/discover">Discover</a></li>
+                                <li class="col-xs-3 menuBG"><a href="/TCDemo/#/learn">Learn</a></li>
+                                <li class="col-xs-3 menuBG"><a href="/TCDemo/#/plan">Plan</a></li>
+                                <li class="col-xs-3 menuBG"><a href="/TCDemo/#/apply">Apply</a></li>
+                                
+                            </ul>-->
+                       <div ng-class="(profilecompleted == 25)? 'col-xs-3 currentmenuBG' : 'col-xs-3 currentmenuBG3'"><a href="/TCDemo/#/discover">Discover</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/learn">Learn</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/plan">Plan</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/apply">Apply</a></div>
+                    </div>
+                        <div class="col-xs-12">
+
+                            <div ng-class="(profilecompleted == 25)? 'panel panel-grey orange-border' : 'panel panel-grey'">
+                                <p class="panel-heading">
+                                    Who are you?
+                                </p>
+                                <div style="text-align: center;">
+                                <a href="http://www.preludecharacteranalysis.com/questionnaire" target="_blank">
+                                    Take a personality test then choose your type below. 
+                                </a>
+                                </div>
+                                <br/>
+                                <p class="panel-body text-center">
+                                 
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ISTJ', cid)" ng-if="(test_code.indexOf('ISTJ') == -1)">ISTJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ISFJ', cid)" ng-if="(test_code.indexOf('ISFJ') == -1)">ISFJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ISTP', cid)" ng-if="(test_code.indexOf('ISTP') == -1)">ISTP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ISFP', cid)" ng-if="(test_code.indexOf('ISFP') == -1)">ISFP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('INFJ', cid)" ng-if="(test_code.indexOf('INFJ') == -1)">INFJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('INTJ', cid)" ng-if="(test_code.indexOf('INTJ') == -1)">INTJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('INFP', cid)" ng-if="(test_code.indexOf('INFP') == -1)">INFP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('INTP', cid)" ng-if="(test_code.indexOf('INTP') == -1)">INTP</button>
+                                       <br/><br/>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ESTP', cid)" ng-if="(test_code.indexOf('ESTP') == -1)">ESTP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ESFP', cid)" ng-if="(test_code.indexOf('ESFP') == -1)">ESFP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ESTJ', cid)" ng-if="(test_code.indexOf('ESTJ') == -1)">ESTJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ESFJ', cid)" ng-if="(test_code.indexOf('ESFJ') == -1)">ESFJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ENFP', cid)" ng-if="(test_code.indexOf('ENFP') == -1)">ENFP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ENTP', cid)" ng-if="(test_code.indexOf('ENTP') == -1)">ENTP</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ENFJ', cid)" ng-if="(test_code.indexOf('ENFJ') == -1)">ENFJ</button>
+                                       <button class="btn btn-primary-blue" ng-click="testCode('ENTJ', cid)" ng-if="(test_code.indexOf('ENTJ') == -1)">ENTJ</button>
+                                       
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div ng-class="(profilecompleted == 50)? 'panel panel-grey orange-border' : 'panel panel-grey'">
+                                <p class="panel-heading">
+                                    What skills do you have?
+                                </p>
+                                <p class="panel-body text-center">
+                                    Take a Code Test
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-grey codeResults">
+                                <p class="panel-heading">
+                                    Upload Results
+                                </p>
+                                <p class="panel-body text-center">
+                                    No Results Uploaded
+                                </p>
+                                <img src="assets/imgs/upload.png" class="img-responsive uploadImage"/>
+                                <br/><br/><br/><br/><br/><br/><br/>
+                            </div>
+                        </div>   
+                        <div class="col-xs-12">
+                            <div class="panel panel-grey">
+                                <p class="panel-heading">
+                                    What is your vision?
+                                </p>
+                                <p class="panel-body">
+                                    Describe your goal
+                                </p>
+                            </div>
+                        </div>
+                        
+
+                </div>
+            </div>
+</div>
+
+
+                    
+                    
+					

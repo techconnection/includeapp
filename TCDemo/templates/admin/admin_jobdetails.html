@@ -1,0 +1,59 @@
+<div class="row">
+			<div class="col-xs-12 headerLength">
+                <header class="header">
+                    <div ng-include="'../templates/admin/admin_header.html'"></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'../templates/admin/admin_sidebar.html'"></div>
+                </div>
+                <div class="main">
+                    <loading path="../"></loading>
+                         <error path="../"></error>
+                        <div class="Back">
+                               &nbsp;&nbsp;&nbsp; <back></back>
+                        </div>
+                       
+                        <div class="col-xs-12">
+                            <div class="view-details-box">
+                                <p class="view-details-box-header">
+                                    <span class="box-subleft">{{ jobsResult.title }}</span>
+                                    <span class="box-subright">
+                                        <button type="button" class="btn btn-primary-blue borderNone" ng-click="viewJobApplicants(jobsResult.$id)">View Applicants</button>
+                                    </span>
+                                </p>
+                                <p class="clearBoth apply-box-subheader">
+                                    {{jobsResult.company}} - {{jobsResult.city}}, {{jobsResult.state}}
+                                </p>
+                                <p class="apply-box-subsubheader">Job Description</p>
+                                <p>
+                                   {{jobsResult.descriptions}}
+                                </p>
+                               
+                                <p></p>
+                                <p class="apply-box-subsubheader">Job Responsibilities</p>
+                                <p>
+                                    {{jobsResult.responsibilities}} 
+                                </p>
+                                
+                                <p></p>
+                                <p class="apply-box-subsubheader">Required Education</p>
+                                <p>
+                                    {{jobsResult.educations}} 
+                                </p>
+                                <p></p>
+                                <p class="apply-box-subsubheader">Desired Skills/Qualities</p>
+                                <p>
+                                    {{jobsResult.skills}} 
+                                </p>
+                               
+                                <p class="text-center">
+                                    <button type="button" class="btn btn-primary-blue borderNone" ng-click="viewJobApplicants(jobsResult.$id)">View Applicants</button>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div> 
+

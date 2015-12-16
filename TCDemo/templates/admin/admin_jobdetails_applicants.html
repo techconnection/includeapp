@@ -1,0 +1,44 @@
+<div class="row">
+			<div class="col-xs-12 headerLength">
+                <header class="header">
+                    <div ng-include="'../templates/admin/admin_header.html'"></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'../templates/admin/admin_sidebar.html'"></div>
+                </div>
+                <div class="main">
+                    <loading path="../"></loading>
+                         <error path="../"></error>
+                        <div class="Back">
+                               &nbsp;&nbsp;&nbsp; <back></back>
+                        </div>
+                       
+                        <div class="col-xs-12">
+                            
+                           
+                            <div class="view-details-box">
+                                <p class="view-details-box-header">
+                                    <span class="box-subleft"></span>
+                                    <span class="box-subright">
+                                    </span>
+                                </p>
+                                <p class="apply-box-subsubheader">Desired Skills/Qualities</p>
+                                
+                                <p>
+                                    {{ jobsResult.skills }}
+                                </p>
+                                
+                                <p class="orangeTopBorder"> <br/>
+                                    Applicants <a href="#">back to top</a> <br/><br/>
+                                    <a href="#"> Natasha Salvo</a>  <br/><br/>
+                                    <a href="#"> Reese Barron</a>  <br/><br/>
+                                </p>
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div> 
+

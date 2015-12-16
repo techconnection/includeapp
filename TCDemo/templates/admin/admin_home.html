@@ -1,0 +1,78 @@
+ <div class="row">
+			<div class="col-xs-12 headerLength">
+                <header class="header">
+                    <div ng-include="'../templates/admin/admin_header.html'"></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'../templates/admin/admin_sidebar.html'"></div>
+                </div>
+                <div class="main" id="admin_home_scope_section">
+                    <loading path="../"></loading>
+                    <error path="../"  ></error>
+                    <div ng-show="mainContentShow">
+                        <div class="box-row">
+                            <span class="box-subleft"> {{ (curPage*pageSize) > jobsResults_count ? jobsResults_count : (curPage*pageSize) }} of {{jobsResults_count}} job postings  </span>
+                            <span class="box-subright">
+                                <button type="button" class="btn btn-primary-blue" ng-click="createJob()">+ Post Job</button>
+                            </span>
+                        </div>
+                       
+                        <div class="text-center">
+                           <uib-pagination 
+                            ng-model="curPage"
+                            total-items="jobsResults_count"
+                            items-per-page="pageSize"
+                            max-size="maxSize"  
+                            boundary-links="true">
+                            </uib-pagination>
+                        </div>
+                        <div class="modal fade" id="jobPostModal" role="dialog">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">{{ notification.modalTitle }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>{{ notification.modalBody }}</p>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                    </div>
+                                    </div>
+                        </div>
+                        <div class="col-xs-12"> 
+                            <div class="view-details-box"
+                                 ng-repeat="jobs in jobsResults | pagination: (curPage - 1) * pageSize | limitTo: pageSize">
+                                <p class="view-details-box-header">
+                                       
+					<span class="box-subleft">{{ jobs.title }}</span>
+                                    <span class="box-subright">
+                                        
+                                         <button type="button" class="btn btn-primary-blue borderNone" ng-click="editJobDetails(jobs.$id)">
+                                          <span class="glyphicon glyphicon-pencil"></span>  
+                                           
+                                         </button>
+                                        <button type="button"  class="btn btn-primary-9b0745 borderNone" ng-click="deleteJobDetails(jobs.$id)">
+                                          <span class="glyphicon glyphicon-trash"></span>  
+                                           
+                                         </button>
+                                         <button type="button" class="btn btn-primary-blue borderNone" ng-click="viewJobDetails(jobs.$id)">
+                                         
+                                         View Details
+                                        </button>
+                                    </span>
+                                </p>
+                                <p class="clearBoth view-details-box-subheader">
+                                    {{ jobs.company }} - {{ jobs.city }}, &nbsp; {{ jobs.state }}
+                                </p>
+                                <p>
+                                    {{jobs.descriptions }}
+                                </p>
+                            </div>
+                        </div>
+                	</div>
+                </div>
+            </div>
+        </div>   

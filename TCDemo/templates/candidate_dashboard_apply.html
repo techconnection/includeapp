@@ -1,0 +1,73 @@
+<loading path="./"></loading>
+                    <error path="./"></error>
+                    <div class="row">
+            <div class="col-xs-12">
+                <header class="header" >
+                    <div ng-include="'templates/header.html'"></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'templates/sidebar.html'"></div>
+                </div>
+                <div class="main">
+                    <div class="col-xs-12">
+                             <!--<ul class="list-inline">
+                                <li class="col-xs-3 menuBG"><a href="/TCDemo/#/discover">Discover</a></li>
+                                <li class="col-xs-3 currentmenuBG3"><a href="/TCDemo/#/learn">Learn</a></li>
+                                <li class="col-xs-3 menuBG"><a href="/TCDemo/#/plan">Plan</a></li>
+                                <li class="col-xs-3 menuBG"><a href="/TCDemo/#/apply">Apply</a></li>
+                            </ul>-->
+                    	<div class="col-xs-3 menuBG"><a href="/TCDemo/#/discover">Discover</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/learn">Learn</a></div>
+                        <div class="col-xs-3 menuBG"><a href="/TCDemo/#/plan">Plan</a></div>
+                        <div class="col-xs-3 currentmenuBG3"><a href="/TCDemo/#/apply">Apply</a></div>
+                    </div>
+                 <div class="col-xs-12">
+                            <div class="view-details-box">
+                                <p class="view-details-box-header">
+                                    <span class="box-subleft">{{ jobsResult.title }}</span>
+                                    <span class="box-subright">
+                                        <button type="button" class="btn btn-primary-blue borderNone" ng-click="applyJob(jobsResult.$id, '-K3_xZzOqPIUOQWSMgBg')">Apply</button>
+                                    </span>
+                                </p>
+                                 <p class="clearBoth apply-box-subheader">
+                                    {{jobsResult.company}} - {{jobsResult.city}}, {{jobsResult.state}}
+                                </p>
+                                <p class="apply-box-subsubheader">Job Description</p>
+                                <p>
+                                   {{jobsResult.descriptions}}
+                                </p>
+                               
+                                <p></p>
+                                <p class="apply-box-subsubheader">Job Responsibilities</p>
+                                <p>
+                                    {{jobsResult.responsibilities}} 
+                                </p>
+                                
+                                <p></p>
+                                <p class="apply-box-subsubheader">Required Education</p>
+                                <p>
+                                    {{jobsResult.educations}} 
+                                </p>
+                                <p></p>
+                                <p class="apply-box-subsubheader">Desired Skills/Qualities</p>
+                                <p>
+                                    {{jobsResult.skills}} 
+                                </p>
+                               
+                                <p class="text-center">
+                                    <button type="button" class="btn btn-primary-blue borderNone" ng-click="applyJob(jobsResult.$id, '-K3_xvgjPESLsw4bY-y5')">Apply</button>
+                                </p>
+                            </div>
+                        </div>
+                    
+                   
+
+                </div>
+            </div>
+</div>
+
+
+
+

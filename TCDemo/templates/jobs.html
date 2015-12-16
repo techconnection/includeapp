@@ -1,0 +1,57 @@
+<loading path="./"></loading>
+                    <error path="./"></error>
+                    <div class="row">
+            <div class="col-xs-12">
+                <header class="header" >
+                    <div ng-include="'templates/header.html'"></div>
+                </header>
+            </div>
+            <div class="col-xs-12 wrapper">
+                <div class="sidebar">
+                    <div ng-include="'templates/sidebar.html'"></div>
+                </div>
+                <div class="main">
+                    
+<loading></loading>
+                    <error></error>
+                    
+                    <div ng-show="mainContentShow">
+                        <div class="box-row">
+                            <span class="box-subleft"> {{ (curPage*pageSize) > jobsResults_count ? jobsResults_count : (curPage*pageSize) }} of {{jobsResults_count}} job postings  </span>
+                            <span class="box-subright">
+                               
+                            </span>
+                        </div>
+                        <div class="text-center">
+                           <uib-pagination 
+                            ng-model="curPage"
+                            total-items="jobsResults_count"
+                            items-per-page="pageSize"
+                            max-size="maxSize"  
+                            boundary-links="true">
+                            </uib-pagination>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="view-details-box"
+                                 ng-repeat="jobs in jobsResults">
+                                <p class="view-details-box-header">
+                                    <span class="box-subleft">{{ jobs.title }} </span>
+                                    <span class="box-subright">
+                                        <button type="button" class="btn btn-primary-blue borderNone" ng-click="viewJobDetails(jobs.$id)">View Details</button>
+                                    </span>
+                                </p>
+                                <p class="clearBoth view-details-box-subheader">
+                                    {{ jobs.company }} - {{ jobs.city }}, &nbsp; {{ jobs.state }}
+                                </p>
+                                <p>
+                                    {{jobs.descriptions }}
+                                </p>
+                            </div>
+                        </div>
+                	</div> 
+
+                </div>
+            </div>
+</div>
+
+
