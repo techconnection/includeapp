@@ -309,41 +309,7 @@ tcControllers.controller('discoverCtrl', ['$scope', '$http', '$firebaseArray', '
         }
         
         $scope.fileUpload = function(cid) {
-            var file_data = $('#resumeuploadfile').prop('files')[0];
-            if(cid !== '' && cid !== undefined && file_data !== undefined) {
-                var fd = new FormData();
-                fd.append('file', file_data);
-                fd.append('cid', cid);
-                $http.post( 'upload.php', fd, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                })
-                .success(function(data) {
-                    if(data.status === 'success') {
-                        postdata = {resumeuploadedfile: [{ name: data.resumefilename , url: data.resumefileurl}]};
-                        jobsService.updateCandidateById($scope.cid, postdata).then(function(data) {
-                        angular.forEach(data, function(v,k) {
-                        $scope[k] = v;
-                        });
-                        alert("Resume Successfully updated");
-                    }, function(){
-                            alert("Resume Successfully not updated");
-                    });
-                    } else {
-                       alert(data.msg); 
-                    }
-                })
-                .error(function(error){
-                    console.log(error);
-                });
-            } else {
-                if(file_data !== undefined) {
-                    alert("Please login and then try again.");
-                } else {
-                    alert("Please Choose a file.");
-                }
-                
-            }
+            sidebarService.fileUpload(cid, $scope);
         }
         
         
@@ -386,6 +352,9 @@ tcControllers.controller('learnCtrl', ['$sce', '$scope', '$http', '$firebaseArra
         sidebarService.sidebar($scope);
         $scope.learnPageMainContent = true;
         
+        $scope.fileUpload = function(cid) {
+            sidebarService.fileUpload(cid, $scope);
+        }
         
         $scope.testSkills = function(skill) {
             if(skill == 'C' || skill == 'C++' || skill == 'C#' || skill == 'Java' || skill == 'Python' || skill == 'PHP') {
@@ -450,13 +419,21 @@ tcControllers.controller('learnCtrl', ['$sce', '$scope', '$http', '$firebaseArra
 
 tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobsService', 'setService', 'sidebarService', '$cookies', '$compile', function($scope, $http, $firebaseArray, jobsService, setService, sidebarService, $cookies, $compile) {
     $scope.config = {};
+    $scope.editVisionModel = {};
     $scope.config.loading = false; 
     $scope.mainContentShow = false;
     sidebarService.sidebar($scope);
     $scope.salary_list =  sidebarService.salary_list; 
     $scope.state_list =   sidebarService.state_list;
     $scope.vision_notification = {};
-    
+    $scope.fileUpload = function(cid) {
+            sidebarService.fileUpload(cid, $scope);
+        }
+        
+    $scope.generateModelName = function (c1,c2) {
+        console.log(c1+c2);
+        return c1+c2;
+    }
     $scope.timeframelist = jobsService.timeframelist;
         function generatecookieid()
                 {
@@ -472,11 +449,11 @@ tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobs
         $scope.addVision = function(cid) {
             var existedVisions = angular.element('tbody#vision_table');
             var existedVisionsLen = angular.element('tbody#vision_table tr').length;
-            var visionTimeFrame = 'visionTimeFrame'+ (existedVisionsLen + 1);
+            var visionTimeFrame = 'visionTimeFrame'+ (existedVisionsLen + 0);
             $scope[visionTimeFrame] = $scope.timeframelist[0];
             //existedVisions.append('<tr><td><span class="glyphicon glyphicon-remove icon-red" ng-click="deleteVision('+cid+')"></span><span ng-click="editVision('+cid+')" class="glyphicon glyphicon-pencil"></span><input type="text" name="" ng-model="" /></td><td><input type="text" name="" ng-model="" /></td><td></td></tr>');
-             var visionCount = existedVisionsLen + 1;
-             console.log($scope.cid);
+             var visionCount = existedVisionsLen + 0;
+            
              existedVisions.append($compile(
                 '<tr><td><span class="glyphicon glyphicon-floppy-disk" ng-click="saveVision(cid, 0 ,'+visionCount+', $event)"></span>\n\
                  &nbsp;<span class="glyphicon glyphicon-remove icon-red" ng-click="deleteVision(cid, 0 , $event)"></span>&nbsp;\n\
@@ -486,30 +463,34 @@ tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobs
                  Please enter goals.</span></td><td><input type="text" class="visionTextBox" name="visionAction'+visionCount+'" \n\
                  ng-keyup="visionActionCheck($event, '+visionCount+')" ng-model="visionAction'+visionCount+'" /><br/>\n\
                  <span class="icon-red" ng-show="visionActionErrMsg'+visionCount+'">Please enter actions.</span></td><td>\n\
-                 <select ng-model="visionTimeFrame'+visionCount+'"><option ng-repeat="tf in timeframelist" value="{{ tf.value }}" >{{ tf.label }}</option>\n\
-                 </select></td></tr>'
+                 <select style="width:140px;" ng-model="visionTimeFrame'+visionCount+'"><option ng-repeat="tf in timeframelist" value="{{ tf.value }}" >{{ tf.label }}</option>\n\
+                 </select><br/><span class="icon-red" ng-show="timeframeErrMsg'+visionCount+'">Select timeframe.</span></td></tr>'
              )($scope));
              
         }
         
         $scope.saveVision = function(cid, vid, index, event) {
-            if(vid == '0') {
-                var mindex = index;
-            } else {
-                var mindex = vid;
-            }
-              
+            console.log(cid, vid, index, event);
+            var mindex = index;
+            if (vid === 0) {
+                console.log("tt1");
+            
             var visionGoal = 'visionGoal'+mindex;
             var visionAction = 'visionAction'+mindex;
             var visionTimeFrame = 'visionTimeFrame'+mindex;
             var visionGoalErrMsg = 'visionGoalErrMsg'+mindex;
             var visionActionErrMsg = 'visionActionErrMsg'+mindex;
-            if($scope[visionGoal] == '' || $scope[visionGoal] === undefined) {
+            var timeframeErrMsg = 'timeframeErrMsg'+mindex;
+            
+            if($scope[visionGoal] == '' || $scope[visionGoal] === undefined) { console.log("error 1");
                 $scope[visionGoalErrMsg] = true;
-            }
-            else if($scope[visionAction] == '' || $scope[visionAction] === undefined) {
+            } else if($scope[visionAction] == '' || $scope[visionAction] === undefined) { console.log("error 2");
                 $scope[visionActionErrMsg] = true;
+            }
+            else if( typeof $scope[visionTimeFrame] == 'object' || $scope[visionTimeFrame] === undefined) { console.log("error 3");
+                $scope[timeframeErrMsg] = true;
             } else {
+                $scope.config.loading = true;
                 var visionid = generatecookieid();
                 if($scope.visions.length === 0) {
                  var vision = [{vid: visionid, goal: $scope[visionGoal], action: $scope[visionAction], timeframe: $scope[visionTimeFrame]}];
@@ -524,21 +505,102 @@ tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobs
                 
             };
             }
+            
             jobsService.updateCandidateById(cid, postdata).then(function(data){
                         angular.forEach(data, function(v,k) {
                         $scope[k] = v;
+                        
                         });
                         angular.element(event.target).parent().parent().remove();
                     //alert("successfully updated");
+                    
+                    var visionGoal = 'visionGoal'+mindex;
+                    var visionAction = 'visionAction'+mindex;
+                    var visionTimeFrame = 'visionTimeFrame'+mindex;
+                    var visionGoalErrMsg = 'visionGoalErrMsg'+mindex;
+                    var visionActionErrMsg = 'visionActionErrMsg'+mindex;
+                    var timeframeErrMsg = 'timeframeErrMsg'+mindex;
+            
+                    delete $scope[visionGoal];delete $scope[visionAction];
+                    delete $scope[visionTimeFrame];delete $scope[visionGoalErrMsg];
+                    delete $scope[visionActionErrMsg];delete $scope[timeframeErrMsg];
+                    
+                    $scope.config.loading = false;
                     $scope.vision_notification.status = 'visionNotification_success';
                     $scope.vision_notification.msg = "A vision successfully added.";
                     
             }, function(){
+                   $scope.config.loading = false;
                    $scope.vision_notification.status = 'visionNotification_alert';
                    $scope.vision_notification.msg = "A vision is unsuccessfull while adding.";
             }); 
                 
             }
+        } else {
+            
+            console.log("edit and save again");
+                var visionGoal = 'visionGoal'+mindex;
+            var visionAction = 'visionAction'+mindex;
+            var visionTimeFrame = 'visionTimeFrame'+mindex;
+            var visionGoalErrMsg = 'visionGoalErrMsg'+mindex;
+            var visionActionErrMsg = 'visionActionErrMsg'+mindex;
+            var timeframeErrMsg = 'timeframeErrMsg'+mindex;
+            console.log(mindex);
+            if($scope.editVisionModel[visionGoal] == '' || $scope.editVisionModel[visionGoal] === undefined) { console.log("error 1");
+                $scope.editVisionModel.visionGoalErrMsg = true;
+            } else if($scope.editVisionModel[visionAction] == '' || $scope.editVisionModel[visionAction] === undefined) { console.log("error 2");
+                $scope.editVisionModel.visionActionErrMsg = true;
+            }
+            else if( typeof $scope.editVisionModel[visionTimeFrame] == 'object' || $scope.editVisionModel[visionTimeFrame] === undefined) { console.log("error 3");
+                $scope.editVisionModel.timeframeErrMsg = true;
+            } else { console.log("cool");
+                $scope.config.loading = true;
+               
+                var visions = $scope.visions;
+                var mod_visions = [];
+                angular.forEach(visions, function(v,k) { 
+                    if(v.vid === vid) {
+                        mod_visions.push({vid: vid, goal: $scope.editVisionModel[visionGoal], action: $scope.editVisionModel[visionAction], timeframe: $scope.editVisionModel[visionTimeFrame]});
+                    } else {
+                        mod_visions.push(v);
+                    }
+                    
+                    
+                });
+                var postdata = {visions : mod_visions};
+            
+            
+            jobsService.updateCandidateById(cid, postdata).then(function(data){
+                        angular.forEach(data, function(v,k) {
+                        $scope[k] = v;
+                        
+                        });
+                        angular.element(event.target).parent().parent().remove();
+                    //alert("successfully updated");
+                    
+                    var visionGoal = 'visionGoal'+mindex;
+                    var visionAction = 'visionAction'+mindex;
+                    var visionTimeFrame = 'visionTimeFrame'+mindex;
+                    var visionGoalErrMsg = 'visionGoalErrMsg'+mindex;
+                    var visionActionErrMsg = 'visionActionErrMsg'+mindex;
+                    var timeframeErrMsg = 'timeframeErrMsg'+mindex;
+            
+                    delete $scope.editVisionModel[visionGoal];delete $scope.editVisionModel[visionAction];
+                    delete $scope.editVisionModel[visionTimeFrame];delete $scope.editVisionModel[visionGoalErrMsg];
+                    delete $scope.editVisionModel[visionActionErrMsg];delete $scope.editVisionModel[timeframeErrMsg];
+                    
+                    $scope.config.loading = false;
+                    $scope.vision_notification.status = 'visionNotification_success';
+                    $scope.vision_notification.msg = "A vision successfully updated.";
+                    
+            }, function(){
+                   $scope.config.loading = false;
+                   $scope.vision_notification.status = 'visionNotification_alert';
+                   $scope.vision_notification.msg = "A vision is unsuccessfull while updating.";
+            }); 
+                
+            }
+        }
         }
         
         $scope.visionGoalCheck = function(event, index) {
@@ -559,11 +621,30 @@ tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobs
               $scope[visionActionErrMsg] = false;     
         }
         
-        $scope.editVision = function(cid, vid, event){
-            angular.element(event.target).parent().parent().remove();
+        $scope.editVision = function(cid, vision, event, index) {
+            //angular.element(event.target).parent().parent().remove();
+            angular.element(event.currentTarget).parent().parent().find('.spanDisplay').addClass('hide');
+            angular.element(event.currentTarget).parent().parent().find('.spanEdit').removeClass('hide');
+            var visionGoal = 'visionGoal'+index;
+            var visionAction = 'visionAction'+index;
+            var visionTimeFrame = 'visionTimeFrame'+index;
+            var visionGoalErrMsg = 'visionGoalErrMsg'+index;
+            var visionActionErrMsg = 'visionActionErrMsg'+index;
+            var timeframeErrMsg = 'timeframeErrMsg'+index;
+            
+            $scope.editVisionModel[visionGoal] = vision.goal;
+            $scope.editVisionModel[visionAction] = vision.action;
+            $scope.editVisionModel[visionTimeFrame] = vision.timeframe;
+            
+            $scope.editVisionModel[visionGoalErrMsg] = false;
+            $scope.editVisionModel[visionActionErrMsg] = false;
+            $scope.editVisionModel[timeframeErrMsg] = false;
+            
+            
         }
         
         $scope.deleteVision = function(cid, vid, event) {
+            $scope.config.loading = true; 
                 var visions = $scope.visions;
                 angular.forEach(visions, function(v, k) {
                     if(v.vid == vid) {
@@ -586,11 +667,13 @@ tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobs
                         $scope[k] = v;
                         
                         });
+                        $scope.config.loading = false; 
                         angular.element(event.target).parent().parent().remove();
                         $scope.vision_notification.status = 'visionNotification_success';
                         $scope.vision_notification.msg = "A vision is successfully deleted.";
                     
             }, function(){
+                    $scope.config.loading = false; 
                     $scope.vision_notification.status = 'visionNotification_alert';
                     $scope.vision_notification.msg = "A vision is unsuccessfull while deleting.";
             });
@@ -625,12 +708,14 @@ tcControllers.controller('planCtrl', ['$scope', '$http', '$firebaseArray', 'jobs
 
 tcControllers.controller('applyCtrl', ['$scope', '$http', '$firebaseArray', 'jobsService', 'setService', 'sidebarService', '$cookies', function($scope, $http, $firebaseArray, jobsService, setService, sidebarService, $cookies) {
      $scope.config = {};
-        $scope.config.loading = true; 
+        $scope.config.loading = false; 
         $scope.mainContentShow = false;
         $scope.salary_list =  sidebarService.salary_list; 
         $scope.state_list =   sidebarService.state_list;
         sidebarService.sidebar($scope);
-        
+        $scope.fileUpload = function(cid) {
+            sidebarService.fileUpload(cid, $scope);
+        }
         
         
         /* if(!$scope.apply) {

@@ -448,11 +448,9 @@ commonServices.factory('jobsService', ['$q', '$http', '$firebaseAuth', '$firebas
                  "addUsers" : function(postdata) {
                      var deferred = $q.defer();
                         var myDataRef = new Firebase(FIREBASE_URL+"/users/candidate/");
-                          return $firebaseArray(myDataRef).$add(postdata).then(function(ref) { 
-                         
+                          return $firebaseArray(myDataRef).$add(postdata).then(function(ref) {
                                 deferred.resolve(ref.key());
                                 return deferred.promise;
-
 
                             }).catch(function(err) {
                                 deferred.reject(err);
@@ -681,6 +679,50 @@ commonServices.factory('sidebarService', ['$q', 'jobsService', 'setService', '$c
 	 return {
 		 salary_list : jobsService.salary_list,
 		 state_list : jobsService.state_list,
+                 fileUpload: function(cid, $scope) {
+                     var file_data = $('#resumeuploadfile').prop('files')[0];
+                     if(cid !== '' && cid !== undefined && file_data !== undefined) {
+                        var fd = new FormData();
+                        fd.append('file', file_data);
+                        fd.append('cid', cid);
+                        $http.post( 'upload.php', fd, {
+                            transformRequest: angular.identity,
+                            headers: {'Content-Type': undefined}
+                        })
+                        .success(function(data) {
+                            if(data.status === 'success') {
+                                if ($scope.resumeuploadedfile.length > 0) {
+                                    var tmpdata = $scope.resumeuploadedfile;
+                                        tmpdata.push({ name: data.resumefilename , url: data.resumefileurl});
+                                    var postdata = {resumeuploadedfile: tmpdata};
+                                } else {
+                                    var postdata = {resumeuploadedfile: [{ name: data.resumefilename , url: data.resumefileurl}]};
+                                }
+
+                                jobsService.updateCandidateById($scope.cid, postdata).then(function(data) {
+                                angular.forEach(data, function(v,k) {
+                                $scope[k] = v;
+                                });
+                                alert("Resume Successfully updated");
+                            }, function(){
+                                    alert("Resume Successfully not updated");
+                            });
+                            } else {
+                            alert(data.msg); 
+                            }
+                        })
+                        .error(function(error){
+                            console.log(error);
+                        });
+                    } else {
+                        if(file_data !== undefined) {
+                            alert("Please login and then try again.");
+                        } else {
+                            alert("Please Choose a file.");
+                        }
+
+                    } 
+                 },
 		 sidebar: function($scope) {
 			 $scope.sidebar_mode = true;
 			 $scope.edit_candidate_info_mode = true;
@@ -697,7 +739,7 @@ commonServices.factory('sidebarService', ['$q', 'jobsService', 'setService', '$c
 					$scope.candidate_salary = uProfile.salary;
 					$scope.candidate_email  = uProfile.email;
 					$scope.candidate_githuburl  = uProfile.githuburl;
-                                        $scope.candidate_resumeuploadedfile = (uProfile.resumeuploadedfile)? uProfile.resumeuploadedfile : [];
+                                        $scope.resumeuploadedfile = (uProfile.resumeuploadedfile)? uProfile.resumeuploadedfile : [];
 					$scope.cid = uProfile.$id;
 					$scope.profilecompleted = uProfile.profilecompleted;
 					$scope.discover = uProfile.discover;
@@ -723,7 +765,7 @@ commonServices.factory('sidebarService', ['$q', 'jobsService', 'setService', '$c
 				$scope.candidate_salary = uProfile.salary;
 				$scope.candidate_email  = uProfile.email;
 				$scope.candidate_githuburl  = uProfile.githuburl; 
-                                $scope.candidate_resumeuploadedfile = (uProfile.resumeuploadedfile)? uProfile.resumeuploadedfile : [];
+                                $scope.resumeuploadedfile = (uProfile.resumeuploadedfile)? uProfile.resumeuploadedfile : [];
 				$scope.cid = uProfile.$id;
 				$scope.profilecompleted = uProfile.profilecompleted;
 				$scope.discover = uProfile.discover;

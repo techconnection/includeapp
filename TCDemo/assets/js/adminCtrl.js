@@ -38,7 +38,7 @@ admintcControllers.controller('adminHomeCtrl', ['$scope', '$location', '$http', 
                         $("#jobPostModal").modal();
                     } else { 
                         
-                        scope.$apply(function(){
+                        scope.$apply(function() {
                             scope.notification = {};
                             scope.notification.modalTitle = "Post Delete Successful!"
                             scope.notification.modalBody = 'You have successfully deleted an existing job.';

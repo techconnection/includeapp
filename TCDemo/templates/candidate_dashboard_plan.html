@@ -84,27 +84,46 @@
                                         </tr>
                                         </thead>
                                         <tbody id="vision_table">
-                                        <tr ng-repeat="vision in visions">
+                                        <tr ng-repeat="vision in visions" class="visionTR">
                                             <td>
-                                                <span class="glyphicon glyphicon-floppy-disk" ng-click="saveVision(cid, vision.vid, 0, $event)" ng-hide="true"></span>&nbsp;
+                                                <span class="glyphicon glyphicon-floppy-disk spanEdit hide" ng-click="saveVision(cid, vision.vid, $index, $event)" ></span>&nbsp;
                                                 <span class="glyphicon glyphicon-remove icon-red" ng-click="deleteVision(cid, vision.vid, $event)"></span>&nbsp;
-                                                <span ng-click="editVision(cid, vision.vid, $event)" class="glyphicon glyphicon-pencil"></span>
-                                                <span>{{ vision.goal }}</span>
-                                                <span>
+                                                <span ng-click="editVision(cid, vision, $event, $index)" class="glyphicon glyphicon-pencil spanDisplay"></span>
+                                                <span class="spanDisplay">
+                                                    {{ vision.goal }}
+                                                </span>
+                                                <span class="spanEdit hide">
                                                     <input type="text"  
                                                            ng-keyup="visionGoalCheck($event, vision.vid)" 
-                                                           ng-model="visionGoalDb$index" 
-                                                           ng-hide="true" />
+                                                           ng-model="editVisionModel['visionGoal'+$index]"
+                                                            />
+                                                </span>
+                                                <span class="icon-red spanEdit hide" ng-show="editVisionModel['visionGoalErrMsg'+$index]">
+                                                    Please enter goals. 
                                                 </span>
                                             </td>
-                                            <td>{{ vision.action }}</td>
                                             <td>
-                                               <select ng-model="visionTimeFrame" ng-hide="true">
+                                                 <span class="spanDisplay">{{ vision.action }} </span>
+                                                 <span class="spanEdit hide">
+                                                     <input type="text"  
+                                                           ng-keyup="visionActionCheck($event, vision.vid)" 
+                                                           ng-model="editVisionModel['visionAction'+$index]"
+                                                            />
+                                                 </span>
+                                                 <span class="icon-red spanEdit hide" ng-show="editVisionModel['visionActionErrMsg'+$index]">
+                                                     Please enter actions. 
+                                                 </span>
+                                            </td>
+                                            <td>
+                                                 <span class="spanDisplay">  {{ vision.timeframe }}</span>
+                                                <select  ng-model="editVisionModel['visionTimeFrame'+$index]" class="spanEdit hide">
                                                     <option ng-repeat="tf in timeframelist" ng-selected="tf.value == vision.timeframe">
                                                         {{ tf.label }}
                                                     </option>
                                                 </select>
-                                                {{ vision.timeframe }}
+                                                <span class="icon-red spanEdit hide" ng-show="editVisionModel['timeframeErrMsg'+$index]">
+                                                    Select timeframe. 
+                                                </span>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -36,9 +36,12 @@
                                         Github: {{ candidate_githuburl }}
                                     </p>
                                     <p>
-                                        Resume: <a 
+                                        Resume: 
+                                     </p>   
+                                       <p ng-repeat="rf in resumeuploadedfile">  
+                                        <a 
                                             href="uploads/{{ rf.url }}" 
-                                            ng-repeat="rf in candidate_resumeuploadedfile"
+                                            target="_blank"
                                             class="orangeColor">
                                             {{ rf.name }}
                                         </a>
@@ -96,7 +99,8 @@
                                         <input id="resumeuploadfile" type="file" name="resumeuploadfile" file-model="$parent.resumeuploadfile"/>
                                         <!--<button id="resumeuploadbtn" class="btn btn-primary-2f475e">Upload</button>
                                         <input id="resumeuploadfilecid" type="hidden" name="resumeuploadfilecid" value="{{$parent.cid}}"/>-->
-                                        <button class="btn btn-primary-2f475e" ng-click="fileUpload($parent.cid)">Angular Upload</button>
+                                        <button class="btn btn-primary-2f475e" ng-click="fileUpload($parent.cid)">Upload</button>
+                                        <button class="btn btn-primary-2f475e" ng-click="upload_resume()">Upload ( via API )</button>
                                     </p>
                                     <p class="text-center">
                                         <button class="btn btn-primary-2f475e" ng-click="save_candidate_info()">Save</button>

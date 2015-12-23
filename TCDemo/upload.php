@@ -1,5 +1,5 @@
 <?php
-function generatecookieid()
+function generateid()
     {
         $text = "";
         $possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -20,9 +20,10 @@ function generatecookieid()
             //echo 'Please choose only a document or pdf file.';
             echo json_encode(array('status' => 'failure', 'msg' => 'Please choose only a document or pdf file.'));
         } else {
-           if( move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' .$_POST['cid'].'@'.generatecookieid().'@'.$_FILES['file']['name'])) {
+            $gid = generateid();
+           if( move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' .$_POST['cid'].'@'.$gid.'@'.$_FILES['file']['name'])) {
               //echo 'Resume uploaded successfully.';
-              echo json_encode(array('status' => 'success', 'msg' => 'Resume uploaded successfully.', 'resumefileurl' => $_POST['cid'].'@'.generatecookieid().'@'.$_FILES['file']['name'], 'resumefilename' => $_FILES['file']['name']));
+              echo json_encode(array('status' => 'success', 'msg' => 'Resume uploaded successfully.', 'resumefileurl' => $_POST['cid'].'@'.$gid.'@'.$_FILES['file']['name'], 'resumefilename' => $_FILES['file']['name']));
               
             } else {
                 //echo 'Please choose a resume.';
